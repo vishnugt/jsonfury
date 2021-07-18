@@ -8,17 +8,16 @@
 <body>
     <script>
         function furify() {
-          try{
-            var raw_json = document.getElementById("json_raw_input");
-            raw_json = raw_json.value.trim();
-            //document.removeChild('pre')
-            //document.body.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(JSON.stringify(JSON.parse(raw_json), null, "\t"));
-            document.getElementById('pretty').innerHTML = syntaxHighlight(JSON.stringify(JSON.parse(raw_json), null, 4));
-            document.getElementById('clipboardCopy').className = "btn btn-primary"
-          }
-          catch{
-            document.getElementById("json_raw_input").style.borderColor = "#dc3545";
-          }
+            try {
+                var raw_json = document.getElementById("json_raw_input");
+                raw_json = raw_json.value.trim();
+                //document.removeChild('pre')
+                //document.body.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(JSON.stringify(JSON.parse(raw_json), null, "\t"));
+                document.getElementById('pretty').innerHTML = syntaxHighlight(JSON.stringify(JSON.parse(raw_json), null, 4));
+                document.getElementById('clipboardCopy').className = "btn btn-primary"
+            } catch {
+                document.getElementById("json_raw_input").style.borderColor = "#dc3545";
+            }
         }
 
         function disableCopy(element) {
@@ -71,16 +70,14 @@
         <div class="col-lg-2 text-center">
             <button class="btn btn-primary" type="submit" onClick="furify()">JSON Fury</button>
         </div>
-        <div class="col-lg-2 text-center">
-          <button class="btn btn-primary disabled" type="clipboardCopy" id="clipboardCopy" onClick="copyToClipboard()">Copy to Clipboard</button>
-      </div>
+
     </div>
 
     <pre id="pretty"> </pre>
-
-
     <div class="row justify-content-center">
-        
+        <div class="col-lg-2 text-center">
+            <button class="btn btn-primary disabled" type="clipboardCopy" id="clipboardCopy" onClick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
     </div>
 </body>
 
