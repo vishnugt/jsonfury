@@ -5,18 +5,46 @@
 </head>
 
 <body>
+  <script>
+      function furify() {
+        var raw_json = document.getElementById("json_raw_input");
+        raw_json = raw_json.value.trim();
+        //document.removeChild('pre')
+        //document.body.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(JSON.stringify(JSON.parse(raw_json), null, "\t"));
+        document.getElementById('pretty').innerHTML = syntaxHighlight(JSON.stringify(JSON.parse(raw_json), null, "\t"));
+    }
 
+    function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+</script>
   <form>
     <div class="form-group">
-      <textarea class="form-control textarea" id="json_raw_input" rows="3"></textarea>
+      <textarea class="form-control textarea" id="json_raw_input" rows="3">[{"userId":1,"id":1,"title":"Title","body":"some text"}]</textarea>
     </div>
   </form>
 
   <div class="row justify-content-center">
     <div class="col-lg-4 text-center">
-        <button class="btn btn-primary" title="Submit">Fury me!</button>
+        <button class="btn btn-primary" type="submit" onClick="furify()">JSON Fury</button>
     </div>
  </div>
 
+ <pre id="pretty"> </pre>
  </body>
 </html>
