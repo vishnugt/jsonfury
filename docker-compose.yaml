@@ -1,0 +1,29 @@
+version: "2.1"
+services:
+  json:
+    image: 'bitnami/apache:latest'
+    container_name: jsonfury
+    restart: always
+    # network_mode: container:transmission-vpn
+    networks:
+      - t2_proxy
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /home/user/projects/jsonfury:/app
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.json-rtr.entrypoints=https"
+      - "traefik.http.routers.json-rtr.rule=Host(`json.$DOMAINNAME`)"
+      - "traefik.http.routers.json-rtr.tls=true"
+      ## Middlewares
+      - "traefik.http.routers.json-rtr.middlewares=chain-no-auth@file"
+      ## HTTP Services
+      - "traefik.http.routers.json-rtr.service=json-svc"
+      - "traefik.http.services.json-svc.loadbalancer.server.port=8080"
+
+networks:
+  t2_proxy:
+    external:
+      name: t2_proxy
