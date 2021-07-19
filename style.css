@@ -44,3 +44,9 @@
   .boolean { color: blue; }
   .null { color: magenta; }
   .key { color: red; }
+
+
+canvas {
+  position: absolute;
+  pointer-events: none
+}
